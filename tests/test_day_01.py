@@ -10,7 +10,7 @@ sample_answer_2 = 241861950
 def test_parts() -> None:
     # Oracle says so
     assert part_1() == 988771
-    # assert part_2() == 0
+    assert part_2() == 171933104
     assert True
 
 
