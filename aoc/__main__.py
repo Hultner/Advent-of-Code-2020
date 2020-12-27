@@ -1,4 +1,4 @@
-from typing import NoReturn
+from typing import Tuple
 
 # from aoc.day_01 import core as day_01
 # from aoc.day_02 import core as day_02
@@ -6,7 +6,7 @@ from typing import NoReturn
 # from aoc.day_04 import core as day_04
 
 
-def main() -> NoReturn:
+def main() -> None:
     puzzles: Tuple = (
         # (day_01.part_1(), day_01.part_2()),
         # (day_02.part_1(), day_02.part_2()),
