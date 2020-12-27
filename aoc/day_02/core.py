@@ -45,9 +45,7 @@ def part_1(puzzle_input: str = p1) -> int:
 
     How many passwords are valid according to their policies?
     """
-    # x = ([1 for password in parse(puzzle_input).passwords if password.valid])
-    # breakpoint()
-    return len([1 for password in parse(puzzle_input).passwords if password.valid])
+    return sum(1 for password in parse(puzzle_input).passwords if password.valid)
 
 
 def part_2(puzzle_input: str = p1) -> int:
@@ -76,8 +74,8 @@ def part_2(puzzle_input: str = p1) -> int:
     How many passwords are valid according to the new interpretation of the
     policies?
     """
-    return len(
-        [1 for password in parse(puzzle_input).passwords if password.valid_corperate]
+    return sum(
+        1 for password in parse(puzzle_input).passwords if password.valid_corperate
     )
 
 
