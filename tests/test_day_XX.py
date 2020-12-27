@@ -16,9 +16,8 @@ def verify_x(data, expected):
 
 
 def test_x():
-    """
-    """
-    examples = ((0,1),)
+    """"""
+    examples = ((0, 1),)
 
     for (data, expected) in examples:
         verify_x(data, expected)
