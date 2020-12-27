@@ -1,10 +1,10 @@
 """
 Day 2
 """
-from typing import Tuple, List, Optional
-import regex
+from typing import Any, Dict, Generator, List
 
-from pydantic import BaseModel, constr, PositiveInt, validator
+import regex
+from pydantic import BaseModel, PositiveInt, constr, validator
 
 from aoc.day_02.seed import p1
 
@@ -89,8 +89,8 @@ class PasswordTest(BaseModel):
     valid: bool = False  # Will be set True if valid
     valid_corperate: bool = False  # Will be set True if valid
 
-    @validator("valid", always=True, pre=True)
-    def check_password(cls, v, values):
+    @validator("valid", always=True)
+    def check_password(cls, v: Any, values: Dict[str, Any]) -> bool:
         "Validates passwords according to quirky sled company policy"
         return (
             values.get("min_occurences")
@@ -98,8 +98,8 @@ class PasswordTest(BaseModel):
             <= values.get("max_occurences")
         )
 
-    @validator("valid_corperate", always=True, pre=True)
-    def check_password_copreate(cls, v, values):
+    @validator("valid_corperate", always=True)
+    def check_password_copreate(cls, v: Any, values: Dict[str, Any]) -> bool:
         "Validates passwords according to strict Toboggan Corporate Policy"
         # Set names in local scope for readability
         idx_1 = values.get("min_occurences") - 1
@@ -114,7 +114,7 @@ class PasswordDBValidator(BaseModel):
     passwords: List[PasswordTest]
 
     @validator("passwords", pre=True)
-    def parse_passwords(cls, v: str) -> List[PasswordTest]:
+    def parse_passwords(cls, v: str) -> Generator[Dict[str, str], None, None]:
         pattern = (
             r"(?P<min_occurences>\d+)-(?P<max_occurences>\d+)"
             r" (?P<character>\w): (?P<password>.*)"

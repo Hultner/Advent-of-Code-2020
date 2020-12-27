@@ -1,8 +1,8 @@
 from typing import Tuple
 
 from aoc.day_01 import core as day_01
-
 from aoc.day_02 import core as day_02
+
 # from aoc.day_03 import core as day_03
 # from aoc.day_04 import core as day_04
 
@@ -25,13 +25,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
-
-# from aoc.day_02 import core as d2
-# v = """
-# 1-3 a: abcde
-# 1-3 b: cdefg
-# 2-9 c: ccccccccc
-# """
-# d2.PasswordDBValidator(passwords=v)

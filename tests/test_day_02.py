@@ -1,6 +1,5 @@
 from typing import Any
 
-from pydantic import BaseModel
 from aoc.day_02.core import part_1, part_2
 
 sample_seed_1 = """
@@ -15,7 +14,7 @@ answer_2 = 1
 def test_parts() -> None:
     # Oracle says so
     assert part_1() == 515
-    assert part_2() == 711 
+    assert part_2() == 711
     assert True
 
 
