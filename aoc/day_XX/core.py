@@ -1,9 +1,7 @@
 """
 """
-import logging
-from numbers import Number
-from typing import Tuple, Iterable, List, NoReturn, Dict
-from dataclasses import dataclass, field
+from typing import Tuple
+
 from aoc.day_XX.seed import p1
 
 

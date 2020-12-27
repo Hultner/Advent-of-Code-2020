@@ -1,8 +1,6 @@
 from typing import Any
-from aoc.day_XX.core import (
-    part_1,
-    part_2,
-)
+
+from aoc.day_XX.core import part_1, part_2
 
 
 def test_parts() -> None:

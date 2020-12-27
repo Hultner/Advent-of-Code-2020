@@ -39,15 +39,37 @@ Of course, your expense report is much larger. Find the two entries that sum to
 """
 
 import logging
-from numbers import Number
-from typing import Tuple, Iterable, List, NoReturn, Dict, Optional
+from functools import reduce
 from itertools import combinations
-from dataclasses import dataclass, field
+from operator import mul
+from typing import Tuple
+
 from aoc.day_01.seed import p1
 
 
 def part_1(puzzle_input: Tuple[int, ...] = p1) -> int:
-    """"""
+    """
+    Before you leave, the Elves in accounting just need you to fix your expense
+    report (your puzzle input); apparently, something isn't quite adding up.
+
+    Specifically, they need you to find the two entries that sum to 2020 and then
+    multiply those two numbers together.
+
+    For example, suppose your expense report contained the following:
+
+    1721
+    979
+    366
+    299
+    675
+    1456
+    In this list, the two entries that sum to 2020 are 1721 and 299. Multiplying
+    them together produces 1721 * 299 = 514579, so the correct answer is 514579.
+
+    Of course, your expense report is much larger. Find the two entries that sum to
+    2020; what do you get if you multiply them together?
+
+    """
     logging.info(puzzle_input)
     a, b = find_pair_sum(puzzle_input, 2020)
     return a * b
@@ -68,8 +90,11 @@ def part_2(puzzle_input: Tuple[int, ...] = p1) -> int:
     In your expense report, what is the product of the three entries that sum
     to 2020?
     """
-    return 0
+    factors = find_pair_sum(puzzle_input, r=3)
+    return reduce(mul, factors)
 
 
-def find_pair_sum(numbers: Tuple[int, ...], target: int = 2020) -> Tuple[int, int]:
-    return next((a, b) for (a, b) in combinations(numbers, 2) if a + b == target)
+def find_pair_sum(
+    numbers: Tuple[int, ...], target: int = 2020, r: int = 2
+) -> Tuple[int, ...]:
+    return next(x for x in combinations(numbers, r) if sum(x) == target)
