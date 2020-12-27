@@ -1,24 +1,28 @@
-from typing import  Any
-from aoc.day_XX.core import (
+from typing import Any
+from aoc.day_01.core import (
     part_1,
     part_2,
 )
 
+sample_seed = (1721, 979, 366, 299, 675, 1456)
+sample_answer = 514579
+
 
 def test_parts() -> None:
     # Oracle says so
-    assert part_1() == 0
-    assert part_2() == 0
+    assert part_1() == 988771
+    # assert part_2() == 0
     assert True
 
 
-def verify_x(data: Any, expected: Any) -> None:
-    assert True
+def verify_p1(data: Any, expected: Any) -> None:
+    # breakpoint()
+    assert part_1(data) == expected
 
 
-def test_x() -> None:
+def test_p1() -> None:
     """"""
-    examples = ((0, 1),)
+    examples = ((sample_seed, sample_answer,),)
 
     for (data, expected) in examples:
-        verify_x(data, expected)
+        verify_p1(data, expected)
