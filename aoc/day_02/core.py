@@ -4,7 +4,7 @@ Day 2
 from typing import Any, Dict, Generator, List
 
 import regex
-from pydantic import BaseModel, PositiveInt, constr, validator
+from pydantic import BaseModel, PositiveInt, Field, constr, validator
 
 from aoc.day_02.seed import p1
 
@@ -82,7 +82,7 @@ def part_2(puzzle_input: str = p1) -> int:
 class PasswordTest(BaseModel):
     min_occurences: PositiveInt
     max_occurences: PositiveInt
-    character: constr(min_length=1, max_length=1, strip_whitespace=True)
+    character: str = Field(min_length=1, max_length=1, strip_whitespace=True)
     password: str
     valid: bool = False  # Will be set True if valid
     valid_corperate: bool = False  # Will be set True if valid
@@ -90,20 +90,23 @@ class PasswordTest(BaseModel):
     @validator("valid", always=True)
     def check_password(cls, v: Any, values: Dict[str, Any]) -> bool:
         "Validates passwords according to quirky sled company policy"
-        return (
-            values.get("min_occurences")
-            <= values.get("password").count(values.get("character"))
-            <= values.get("max_occurences")
-        )
+        try:
+            return (
+                values.get("min_occurences")
+                <= values.get("password", "").count(values.get("character"))
+                <= values.get("max_occurences")
+            )
+        except TypeError:
+            return False
 
     @validator("valid_corperate", always=True)
     def check_password_copreate(cls, v: Any, values: Dict[str, Any]) -> bool:
         "Validates passwords according to strict Toboggan Corporate Policy"
         # Set names in local scope for readability
-        idx_1 = values.get("min_occurences") - 1
-        idx_2 = values.get("max_occurences") - 1
-        char = values.get("character")
-        password = values.get("password")
+        idx_1 = values.get("min_occurences", 0) - 1
+        idx_2 = values.get("max_occurences", 0) - 1
+        char = values.get("character", "")
+        password = values.get("password", "")
 
         return (password[idx_1] == char) ^ (password[idx_2] == char)
 
