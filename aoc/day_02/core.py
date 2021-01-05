@@ -4,7 +4,7 @@ Day 2
 from typing import Any, Dict, Generator, List
 
 import regex
-from pydantic import BaseModel, PositiveInt, Field, constr, validator
+from pydantic import BaseModel, PositiveInt, Field, validator
 
 from aoc.day_02.seed import p1
 
