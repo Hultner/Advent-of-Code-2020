@@ -3,7 +3,7 @@ from typing import Tuple
 from aoc.day_01 import core as day_01
 from aoc.day_02 import core as day_02
 
-# from aoc.day_03 import core as day_03
+from aoc.day_03 import core as day_03
 # from aoc.day_04 import core as day_04
 
 
@@ -11,7 +11,7 @@ def main() -> None:
     puzzles: Tuple = (
         (day_01.part_1(), day_01.part_2()),
         (day_02.part_1(), day_02.part_2()),
-        # (day_03.part_1(), day_03.part_2()),
+        (day_03.part_1(), day_03.part_2()),
         # (day_04.part_1(), day_04.part_2()),
     )
 
