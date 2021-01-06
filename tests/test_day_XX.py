@@ -2,9 +2,13 @@ from typing import Any
 
 from aoc.day_XX.core import part_1, part_2
 
-sample_seed_1 = (1, )
+sample_seed_1 = (1,)
 
-answers = ( 0, 0, )
+answers = (
+    0,
+    0,
+)
+
 
 def test_parts() -> None:
     # Oracle says so
