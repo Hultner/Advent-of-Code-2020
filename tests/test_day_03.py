@@ -16,7 +16,11 @@ sample_seed_1 = """
 .#..#...#.#
 """.strip()
 
-answers = [7, 336,]
+answers = [
+    7,
+    336,
+]
+
 
 def test_parts() -> None:
     # Oracle says so

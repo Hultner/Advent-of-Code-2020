@@ -104,3 +104,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Editor stuff
+.vscode
+.swo
+.swp
