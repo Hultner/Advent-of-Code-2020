@@ -3,7 +3,7 @@ Advent of Code - Day 04
 """
 from enum import Enum
 import logging
-from typing import Dict, Iterator, List, Optional, TypeVar
+from typing import Dict, Iterator, List, Optional, Type, TypeVar
 from shlex import split
 
 from pydantic import BaseModel, Field, validator
@@ -82,7 +82,7 @@ def part_1(puzzle_input: str = p1) -> int:
     fields. Treat cid as optional. In your batch file, how many passports are
     valid?
     """
-    return len(get_passports(parse(puzzle_input)))
+    return len(get_passports(parse(puzzle_input), Passport))
 
 
 def part_2(puzzle_input: str = p1) -> int:
@@ -200,7 +200,7 @@ class EyeColor(str, Enum):
     oth = "oth"
 
 
-class PassportValidated(Passport):
+class PassportValidated(BaseModel):
     """
     Passports with additional validation
     """
@@ -214,8 +214,11 @@ class PassportValidated(Passport):
     # (Expiration Year) - four digits; at least 2020 and at most 2030.
     eyr: int = Field(..., gt=2019, lt=2031)
 
+    "Height"
+    hgt: str
+
     @validator("hgt")
-    def check_height(cls, v: str) -> bool:
+    def check_height(cls, v: str) -> str:
         """
         hgt (Height) - a number followed by either cm or in:
         If cm, the number must be at least 150 and at most 193.
@@ -234,7 +237,7 @@ class PassportValidated(Passport):
     hcl: Color
 
     @validator("hcl")
-    def check_hcl_hex(cls, v: Color):
+    def check_hcl_hex(cls, v: Color) -> Color:
         assert len(v.original()) == 7 and v.original()[0] == "#"
         return v
 
@@ -245,26 +248,35 @@ class PassportValidated(Passport):
     pid: int
 
     @validator("pid", pre=True)
-    def check_pid_len(cls, v: str):
+    def check_pid_len(cls, v: str) -> str:
         assert len(v) == 9
         return v
 
     # cid (Country ID) - ignored, missing or not.
+    "Country ID"
+    cid: Optional[int]
 
 
 def parse(
-    puzzle_input: str, passport_separator="\n\n", key_separator=":"
+    puzzle_input: str, passport_separator: str = "\n\n", key_separator: str = ":"
 ) -> ParsedData:
     return (
-        dict(token.split(key_separator) for token in split(passport_str))
+        # Safe to ignore.
+        # Since we know the lexer will always spit out list of two strings.
+        #
+        # mypy will infer the result type of token.split as List[str] or
+        # Tuple[str, ...], dict expects Tuple[str, str].
+        dict(
+            token.split(key_separator) for token in split(passport_str)  # type: ignore
+        )
         for passport_str in puzzle_input.split(passport_separator)
     )
 
 
-T = TypeVar("T", Passport, PassportValidated)
+A = TypeVar("A", PassportValidated, Passport)
 
 
-def get_passports(parsed_data: ParsedData, passport_class: T = Passport) -> List[T]:
+def get_passports(parsed_data: ParsedData, passport_class: Type[A]) -> List[A]:
     passports = []
 
     for data in parsed_data:
