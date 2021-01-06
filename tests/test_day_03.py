@@ -22,7 +22,6 @@ def test_parts() -> None:
     # Oracle says so
     assert part_1() == 292
     assert part_2() == 9354744432
-    assert True
 
 
 def verify_x(data: Any, expected_1: Any, expected_2: Any) -> None:
