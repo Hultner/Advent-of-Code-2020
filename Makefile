@@ -8,6 +8,8 @@ endif
 day: 
 	cp -r aoc/day_XX aoc/day_$(DAY)
 	cp tests/test_day_XX.py tests/test_day_$(DAY).py
+	sed -i '' "s/XX/$(DAY)/g" aoc/day_$(DAY)/core.py
+	sed -i '' "s/XX/$(DAY)/g" tests/test_day_$(DAY).py
 
 build:
 	rm aoc.o
